@@ -13,6 +13,7 @@ def main():
 
     command = 'pip uninstall {} -y'.format(' '.join(installed))
     print(envoy.run(command).std_out)
+    print('Purged!')
 
 if __name__ == '__main__':
     main()
