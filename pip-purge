@@ -9,7 +9,7 @@ def main():
     installed = freeze.split()
 
     # Alert the user.
-    print('Found {} dirty packages intalled, purging...'.format(len(installed)))
+    print('Found {} dirty packages installed, purging...'.format(len(installed)))
 
     command = 'pip uninstall {} -y'.format(' '.join(installed))
     print(envoy.run(command).std_out)
