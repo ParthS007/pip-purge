@@ -16,7 +16,7 @@ def main():
         print(envoy.run(command).std_out)
         print('Purged!')
     else:
-        print "Warning! You are not in a virtualenv. This will purge all system-level packages."
+        print("Warning! You are not in a virtualenv. This will purge all system-level packages.")
         
 
 if __name__ == '__main__':
