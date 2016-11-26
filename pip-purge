@@ -4,7 +4,10 @@ import envoy
 import sys
 
 def main():
-    if hasattr(sys, "real_prefix"):
+    if not hasattr(sys, "real_prefix"):
+        print("Warning! You are not in an active virtual environment. This will purge all system-level packages!")
+        sys.exit(1)
+    else:
         # Capture the output of `$ pip freeze`.
         freeze = envoy.run('pip freeze').std_out
         installed = freeze.split()
@@ -15,9 +18,7 @@ def main():
         command = 'pip uninstall {} -y'.format(' '.join(installed))
         print(envoy.run(command).std_out)
         print('Purged!')
-    else:
-        print("Warning! You are not in a virtualenv. This will purge all system-level packages.")
-        
+      
 
 if __name__ == '__main__':
     main()
