@@ -1,19 +1,24 @@
 #!/usr/bin/env python
 
 import envoy
+import sys
 
 def main():
+    if not hasattr(sys, "real_prefix"):
+        print("Warning! You are not in an active virtual environment. This will purge all system-level packages!")
+        sys.exit(1)
+    else:
+        # Capture the output of `$ pip freeze`.
+        freeze = envoy.run('pip freeze').std_out
+        installed = freeze.split()
 
-    # Capture the output of `$ pip freeze`.
-    freeze = envoy.run('pip freeze').std_out
-    installed = freeze.split()
+        # Alert the user.
+        print('Found {} dirty packages installed, purging...'.format(len(installed)))
 
-    # Alert the user.
-    print('Found {} dirty packages installed, purging...'.format(len(installed)))
-
-    command = 'pip uninstall {} -y'.format(' '.join(installed))
-    print(envoy.run(command).std_out)
-    print('Purged!')
+        command = 'pip uninstall {} -y'.format(' '.join(installed))
+        print(envoy.run(command).std_out)
+        print('Purged!')
+      
 
 if __name__ == '__main__':
     main()
