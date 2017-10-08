@@ -10,11 +10,13 @@ def main():
     else:
         # Capture the output of `$ pip freeze`.
         freeze = envoy.run('pip freeze').std_out
-        installed = freeze.split()
-
+        installed = len(freeze.split())
         # Alert the user.
-        print('Found {} dirty packages installed, purging...'.format(len(installed)))
-
+	print(f"Found {installed} dirty packages installed.")
+        print("These packages are:")
+        for package in freeze.split():
+            print(package)
+	print ("\n"+ "purging...")
         command = 'pip uninstall {} -y'.format(' '.join(installed))
         print(envoy.run(command).std_out)
         print('Purged!')
