@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/ParthS007/pip-purge/workflows/CI/badge.svg)](https://github.com/ParthS007/pip-purge/actions)
+
 # pip-purge: uninstall everything in your virtualenv.
 
 I don't like destroying and recreating virtualenvs to get a clean `pip freeze`.
