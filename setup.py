@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name="pip-purge",
-    version="0.1.2",
+    version="1.0.0",
     url="https://github.com/kennethreitz/pip-purge",
     license="MIT",
     author="Kenneth Reitz",
