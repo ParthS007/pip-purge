@@ -3,24 +3,33 @@
 import envoy
 import sys
 
+
+def is_venv():
+    return hasattr(sys, "real_prefix") or (
+        hasattr(sys, "base_prefix") and sys.base_prefix != sys.prefix
+    )
+
+
 def main():
-    if not hasattr(sys, "real_prefix"):
-        print("Warning! You are not in an active virtual environment. This will purge all system-level packages!")
+    if not is_venv():
+        print(
+            "Warning! You are not in an active virtual environment. This will purge all system-level packages!"
+        )
         sys.exit(1)
     else:
         # Capture the output of `$ pip freeze`.
-        freeze = envoy.run('pip freeze').std_out
-        installed = len(freeze.split())
+        freeze = envoy.run("pip freeze").std_out
+        installed = freeze.split()
         # Alert the user.
-	print(f"Found {installed} dirty packages installed.")
+        print(f"Found {len(installed)} dirty packages installed.")
         print("These packages are:")
-        for package in freeze.split():
+        for package in installed:
             print(package)
-	print ("\n"+ "purging...")
-        command = 'pip uninstall {} -y'.format(' '.join(installed))
+            print("\n" + "purging...")
+        command = "pip uninstall {} -y".format(" ".join(installed))
         print(envoy.run(command).std_out)
-        print('Purged!')
-      
+        print("Purged!")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
